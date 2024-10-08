@@ -2,9 +2,7 @@
 @section('title','Create Posts')
 
 @section('content')
-    @if($errors->any())
-        {{ implode('', $errors->all('<div>:message</div>')) }}
-    @endif
+
     <div class="container">
         <h1 class="text-center my-4">Создать пост</h1>
         <div class="row justify-content-center">

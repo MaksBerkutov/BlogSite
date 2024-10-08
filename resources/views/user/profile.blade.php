@@ -18,7 +18,7 @@
                                             <img src="data:image/png;base64,{{Auth::user()->image}}" class="img-radius" alt="User-Profile-Image">
                                         </div>
                                         <h6 class="f-w-600">{{Auth::user()->name}}</h6>
-                                        <p>Web Designer</p>
+                                        <p>{{Auth::user()->role}}</p>
                                         <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                     </div>
                                 </div>

@@ -1,3 +1,71 @@
+@php
+   $menuList = [
+       [
+            'name'=>'Search',
+            'url'=>'/post/search',
+            'image'=>'search-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Home',
+            'url'=>'/home',
+            'image'=>'home-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Posts',
+            'url'=>'/post',
+            'image'=>'chatbubbles-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Post Add',
+            'url'=>'/post/create',
+            'image'=>'add-circle-outline',
+            'guard'=>'editor|admin'
+       ],[
+            'name'=>'Projects',
+            'url'=>'#',
+            'image'=>'folder-open-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Dashboard',
+            'url'=>'#',
+            'image'=>'pie-chart-outline',
+            'guard'=>'admin'
+       ],[
+            'name'=>'Users',
+            'url'=>'/admin/users',
+            'image'=>'people-outline',
+            'guard'=>'admin'
+       ],[
+            'name'=>'Support',
+            'url'=>'#',
+            'image'=>'chatbubbles-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Settings',
+            'url'=>'/home/profile',
+            'image'=>'settings-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Logout',
+            'url'=>'/logout',
+            'image'=>'log-out-outline',
+            'guard'=>''
+       ]
+
+
+
+
+];
+function MenuGuard(string $GuardString):bool{
+    if(empty($GuardString)) return true;
+    $guards = explode('|',$GuardString);
+    foreach ($guards as $guard){
+        if($guard == \Illuminate\Support\Facades\Auth::user()->role)
+            return true;
+    }
+    return false;
+}
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -17,9 +85,10 @@
 >
 </head>
 <body>
+
 <nav id="navbar" style="z-index: 1;">
     <ul class="navbar-items flexbox-col">
-        <li class="navbar-logo flexbox-left" style="color: white">
+        <li class="navbar-logo navbar-item flexbox-left" >
             <a class="navbar-item-inner flexbox">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 1438.88 1819.54">
                     <polygon points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"/>
@@ -27,24 +96,21 @@
                 </svg>
 
             </a>
-            {{\Illuminate\Support\Facades\Auth::user()->name}}
+            <span class="link-text" style="color: white">  {{Auth::user()->name}}</span>
         </li>
-        <x-menu-item name="Search" href="/post/search" icon="search-outline"></x-menu-item>
-        @if(!Route::currentRouteName()=='home')
-        @endif
-        <x-menu-item name="Home" href="/home" icon="home-outline"></x-menu-item>
-        <x-menu-item name="Posts" href="/post" icon="chatbubbles-outline"></x-menu-item>
-        <x-menu-item name="Post Add" href="/post/create" icon="add-circle-outline"></x-menu-item>
-        <x-menu-item name="Projects" href="#" icon="folder-open-outline"></x-menu-item>
-        <x-menu-item name="Dashboard" href="#" icon="pie-chart-outline"></x-menu-item>
-        <x-menu-item name="Team" href="#" icon="people-outline"></x-menu-item>
-        <x-menu-item name="Support" href="#" icon="chatbubbles-outline"></x-menu-item>
-        <x-menu-item name="Settings" href="/home/profile" icon="settings-outline"></x-menu-item>
-        <x-menu-item name="Logout" href="/logout" icon="log-out-outline"></x-menu-item>
+        @foreach($menuList as $menu)
+            @if(MenuGuard($menu['guard']))
+                <x-menu-item name="{{$menu['name']}}" href="{{$menu['url']}}" icon="{{$menu['image']}}"></x-menu-item>
+            @endif
+        @endforeach
+
     </ul>
 </nav>
 
 <main id="main" class="flexbox-col container " style="z-index: -1;">
+    @if($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+    @endif
     @yield('content')
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
