@@ -17,7 +17,7 @@
 >
 </head>
 <body>
-<nav id="navbar">
+<nav id="navbar" style="z-index: 1;">
     <ul class="navbar-items flexbox-col">
         <li class="navbar-logo flexbox-left" style="color: white">
             <a class="navbar-item-inner flexbox">
@@ -29,7 +29,7 @@
             </a>
             {{\Illuminate\Support\Facades\Auth::user()->name}}
         </li>
-        <x-menu-item name="Search" href="#" icon="search-outline"></x-menu-item>
+        <x-menu-item name="Search" href="/post/search" icon="search-outline"></x-menu-item>
         @if(!Route::currentRouteName()=='home')
         @endif
         <x-menu-item name="Home" href="/home" icon="home-outline"></x-menu-item>
@@ -39,12 +39,12 @@
         <x-menu-item name="Dashboard" href="#" icon="pie-chart-outline"></x-menu-item>
         <x-menu-item name="Team" href="#" icon="people-outline"></x-menu-item>
         <x-menu-item name="Support" href="#" icon="chatbubbles-outline"></x-menu-item>
-        <x-menu-item name="Settings" href="#" icon="settings-outline"></x-menu-item>
+        <x-menu-item name="Settings" href="/home/profile" icon="settings-outline"></x-menu-item>
         <x-menu-item name="Logout" href="/logout" icon="log-out-outline"></x-menu-item>
     </ul>
 </nav>
 
-<main id="main" class="flexbox-col">
+<main id="main" class="flexbox-col container " style="z-index: -1;">
     @yield('content')
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
