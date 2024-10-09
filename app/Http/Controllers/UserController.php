@@ -27,11 +27,15 @@ class UserController extends Controller
         return redirect()->route('verification.notice');
     }
     public function login(request $request){
-        $credentials = $request->validate([
+        $user = $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required']
         ]);
-         if (Auth::attempt($credentials)) {
+         if (Auth::attempt($user)) {
+             if(Auth::user()->role=='blocked'){
+                 $this->logout();
+                 return view('erros.blocked',compact($user));
+             }
              return redirect()->intended('/home');
          }
         return back()->withErrors([

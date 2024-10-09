@@ -23,6 +23,14 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [App\Http\Controllers\UserController::class,'create'])->name('register');
 });
 Route::middleware('auth')->group(function () {
+    Route::get('/home/vote', [App\Http\Controllers\VoteController::class, 'index'])->name('vote');
+    Route::get('/home/vote/create', [App\Http\Controllers\VoteController::class, 'create'])->middleware('checkRole:admin');
+    Route::post('/home/vote/create', [App\Http\Controllers\VoteController::class, 'create_action'])->middleware('checkRole:admin');
+    Route::get('/home/vote/{id}', [App\Http\Controllers\VoteController::class, 'show'])->name('vote.show');
+    Route::post('/home/vote/{id}/vote', [App\Http\Controllers\VoteController::class, 'vote'])->name('vote.vote');
+
+
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
     Route::get('/post', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');

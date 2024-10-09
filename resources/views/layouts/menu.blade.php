@@ -21,6 +21,16 @@
             'image'=>'add-circle-outline',
             'guard'=>'editor|admin'
        ],[
+            'name'=>'Vote',
+            'url'=>'/home/vote',
+            'image'=>'list-outline',
+            'guard'=>''
+       ],[
+            'name'=>'Vote Add',
+            'url'=>'/home/vote/create',
+            'image'=>'add-circle-outline',
+            'guard'=>'editor|admin'
+       ],[
             'name'=>'Projects',
             'url'=>'#',
             'image'=>'folder-open-outline',

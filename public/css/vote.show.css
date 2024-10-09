@@ -1,0 +1,24 @@
+.custom-radio {
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007bff;
+    background-color: #fff;
+}
+
+.custom-radio:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-radio:checked + .form-check-label::before {
+    content: '✔';
+    color: white;
+    position: absolute;
+    top: -2px;
+    left: 4px;
+}
+
+.custom-radio + .form-check-label {
+    padding-left: 30px;
+}

@@ -14,8 +14,8 @@ class AdminController extends Controller
     }
     public function upadteUsers(Request $request ){
         $request->validate([
-            'id' => 'required|integer|exists:users,id',
-            'role' => 'required|string|in:user,moderator,admin'
+            'id' => ['required','integer','exists:users,id'],
+            'role' => ['required','string','in:user,moderator,admin,blocked']
         ]);
         switch ($request['type']){
             case 'update':{
